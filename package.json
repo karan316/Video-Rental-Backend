@@ -1,0 +1,22 @@
+{
+  "name": "vidly-api-node",
+  "version": "1.0.0",
+  "description": "An api for video streaming platform vidly.",
+  "main": "index.js",
+  "dependencies": {
+    "config": "^3.3.1",
+    "debug": "^4.1.1",
+    "express": "^4.17.1",
+    "helmet": "^3.22.0",
+    "joi": "^14.3.1",
+    "mongoose": "^5.9.9",
+    "morgan": "^1.10.0",
+    "pug": "^2.0.4"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Karan Hejmadi",
+  "license": "MIT"
+}
