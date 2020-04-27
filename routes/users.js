@@ -1,10 +1,16 @@
-const config = require("config");
-const jwt = require("jsonwebtoken");
 const _ = require("lodash");
 const bcrypt = require("bcrypt");
 const express = require("express");
 const router = express.Router();
 const { User, validateUser } = require("../models/user");
+const auth = require("../middleware/auth");
+
+// route to get the user's profile
+router.get("/me", auth, async (req, res) => {
+    // req is set to the user's jwt in the auth middleware from where we can get his id from the payload. Exclude the password when sending to the client.
+    const user = await User.findById(req.user._id).select("-password");
+    res.send(user);
+});
 
 router.post("/", async (req, res) => {
     const { error } = validateUser(req.body);

@@ -1,3 +1,5 @@
+require("express-async-errors"); //if this module does not work then use the asyncMiddleware function in async.js
+const error = require("./middleware/error");
 const config = require("config");
 const Joi = require("joi");
 Joi.objectId = require("joi-objectid")(Joi);
@@ -28,7 +30,9 @@ app.use("/api/movies", movies);
 app.use("/api/users", users);
 app.use("/api/rentals", rentals);
 app.use("/api/auth", auth);
-app.use("/", home);
+
+// if there is an error we get to this middleware
+app.use(error);
 
 const port = process.env.PORT || 3000;
 
