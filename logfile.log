@@ -1,2 +1,17 @@
 {"level":"error","message":"Could not get genres.."}
 {"level":"error","message":"Could not get genres.."}
+{"level":"error","message":"Something failed during startup..;-(Something failed during startup..;-(","stack":"Error: Something failed during startup..;-(\n    at Object.<anonymous> (/home/karan/Karan/Courses/Mosh/Node/vidly-api-node/index.js:31:7)\n    at Module._compile (internal/modules/cjs/loader.js:945:30)\n    at Object.Module._extensions..js (internal/modules/cjs/loader.js:962:10)\n    at Module.load (internal/modules/cjs/loader.js:798:32)\n    at Function.Module._load (internal/modules/cjs/loader.js:711:12)\n    at Function.Module.runMain (internal/modules/cjs/loader.js:1014:10)\n    at internal/main/run_main_module.js:17:11"}
+{"message":"Connected to MongoDB...","level":"info"}
+{"message":"Connected to MongoDB...","level":"info"}
+{"message":"Connected to MongoDB...","level":"info"}
+{"message":"Connected to MongoDB...","level":"info"}
+{"message":"Listening on port 3000","level":"info"}
+{"message":"Connected to MongoDB...","level":"info"}
+{"message":"Listening on port 3000","level":"info"}
+{"message":"Connected to MongoDB...","level":"info"}
+{"message":"Listening on port 3000","level":"info"}
+{"message":"Connected to MongoDB...","level":"info"}
+{"message":"Listening on port 3000","level":"info"}
+{"message":"Connected to MongoDB...","level":"info"}
+{"message":"Listening on port 3000","level":"info"}
+{"message":"Connected to MongoDB...","level":"info"}
