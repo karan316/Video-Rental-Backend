@@ -1,11 +1,12 @@
 require("express-async-errors"); //if this module does not work then use the asyncMiddleware function in async.js
+const winston = require("winston");
+require("winston-mongodb");
 const error = require("./middleware/error");
 const config = require("config");
 const Joi = require("joi");
 Joi.objectId = require("joi-objectid")(Joi);
 const express = require("express");
 const genres = require("./routes/genres");
-const home = require("./routes/home");
 const mongoose = require("mongoose");
 const customers = require("./routes/customers");
 const movies = require("./routes/movies");
@@ -13,6 +14,14 @@ const rentals = require("./routes/rentals");
 const users = require("./routes/users");
 const auth = require("./routes/auth");
 const app = express();
+
+winston.add(new winston.transports.File({ filename: "logfile.log" }));
+winston.add(
+    new winston.transports.MongoDB({
+        db: "mongodb://localhost/vidly-database",
+        level: "error",
+    })
+);
 
 // check if the jwtPrivateKey is defined
 if (!config.get("jwtPrivateKey")) {

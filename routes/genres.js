@@ -4,13 +4,10 @@ const { Genre, validateGenre } = require("../models/genre");
 const auth = require("../middleware/auth");
 const admin = require("../middleware/admin");
 
-router.get("/", async (req, res, next) => {
-    try {
-        const genres = await Genre.find().sort("name");
-        res.send(genres);
-    } catch (ex) {
-        next(ex);
-    }
+router.get("/", async (req, res) => {
+    // throw new Error("Could not get genres..");
+    const genres = await Genre.find().sort("name");
+    res.send(genres);
 });
 
 router.get("/:id", async (req, res) => {
@@ -32,6 +29,7 @@ router.post("/", auth, async (req, res) => {
     let genre = new Genre({
         name: req.body.name,
     });
+    Genre.drop;
     genre = await genre.save();
     res.send(genre);
 });
