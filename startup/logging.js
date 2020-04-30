@@ -1,5 +1,5 @@
 const winston = require("winston");
-require("winston-mongodb");
+// require("winston-mongodb");
 //if this module does not work then use the asyncMiddleware function in async.js
 require("express-async-errors");
 module.exports = function () {
@@ -8,6 +8,7 @@ module.exports = function () {
         new winston.transports.Console({
             format: winston.format.combine(
                 winston.format.colorize(),
+                winston.format.prettyPrint(),
                 winston.format.simple()
             ),
         }),
@@ -30,11 +31,11 @@ module.exports = function () {
 
     // handle internal server error. (like cannot connect to MongoDB. waits 30 seconds)
     winston.add(new winston.transports.File({ filename: "logfile.log" }));
-    winston.add(
-        new winston.transports.MongoDB({
-            db: "mongodb://localhost/vidly-database",
-            level: "error",
-        })
-    );
+    // winston.add(
+    //     new winston.transports.MongoDB({
+    //         db: "mongodb://localhost/vidly-database",
+    //         level: "error",
+    //     })
+    // );
     winston.add(new winston.transports.Console());
 };

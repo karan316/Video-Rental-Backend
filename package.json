@@ -22,10 +22,14 @@
         "winston-mongodb": "^3.0.2"
     },
     "devDependencies": {
-        "jest": "^25.5.1"
+        "jest": "^25.5.1",
+        "supertest": "^4.0.2"
+    },
+    "jest": {
+        "testEnvironment": "node"
     },
     "scripts": {
-        "test": "jest --watchAll"
+        "test": "jest --watchAll --verbose --runInBand"
     },
     "author": "Karan Hejmadi",
     "license": "MIT"

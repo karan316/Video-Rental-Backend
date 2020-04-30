@@ -2,7 +2,8 @@ const jwt = require("jsonwebtoken");
 const { User } = require("../../../models/user");
 const config = require("config");
 const mongoose = require("mongoose");
-describe("user.genrerateAuthToken", () => {
+
+describe("user.generateAuthToken", () => {
     it("should return a valid JWT", () => {
         const payload = {
             // toHexString is because the id is stored as an array of numbers. When auth token is generated it gives back string representation.
