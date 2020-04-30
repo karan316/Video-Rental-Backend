@@ -29,7 +29,7 @@
         "testEnvironment": "node"
     },
     "scripts": {
-        "test": "jest --watchAll --verbose --runInBand"
+        "test": "jest --watchAll --verbose --runInBand --coverage"
     },
     "author": "Karan Hejmadi",
     "license": "MIT"
