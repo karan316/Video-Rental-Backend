@@ -13,8 +13,6 @@ router.get("/", async (req, res) => {
 });
 
 router.get("/:id", validateObjectId, async (req, res) => {
-    // if the id is invalid
-
     const genre = await Genre.findById(req.params.id);
     // if genre with given id does not exist
     if (!genre) {
@@ -39,10 +37,10 @@ router.post("/", auth, async (req, res) => {
     res.send(genre);
 });
 
-router.put("/:id", async (req, res) => {
+router.put("/:id", [auth, validateObjectId], async (req, res) => {
     const { error } = validateGenre(req.body);
     if (error) {
-        res.status(400).send("Genre with the given id not found");
+        res.status(400).send(error.details[0].message);
         return;
     } //validate the request first
 
@@ -59,7 +57,7 @@ router.put("/:id", async (req, res) => {
     res.send(genre);
 });
 
-router.delete("/:id", [auth, admin], async (req, res) => {
+router.delete("/:id", [auth, admin, validateObjectId], async (req, res) => {
     const genre = await Genre.findByIdAndRemove(req.params.id);
 
     if (!genre) {

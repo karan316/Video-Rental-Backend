@@ -105,4 +105,131 @@ describe("/api/genres", () => {
             expect(res.body).toHaveProperty("name", "genre1");
         });
     });
+
+    describe("PUT /:id", () => {
+        let token;
+        let genre;
+        let newName;
+        let id;
+
+        beforeEach(async () => {
+            // before each test we need to create a genre and put it into the database
+            token = new User().generateAuthToken();
+            genre = new Genre({ name: "genre1" });
+            await genre.save();
+            id = genre._id;
+            newName = "updatedName";
+        });
+
+        const exec = () => {
+            return request(server)
+                .put(`/api/genres/${id}`)
+                .set("x-auth-token", token)
+                .send({ name: newName });
+        };
+
+        it("should return 401 if client is not logged in", async () => {
+            token = "";
+            const res = await exec();
+
+            expect(res.status).toBe(401);
+        });
+
+        it("should return 400 if genre is less than 3 characters", async () => {
+            newName = "12";
+
+            const res = await exec();
+
+            expect(res.status).toBe(400);
+        });
+
+        it("should return 400 if genre is more than 50 characters", async () => {
+            newName = new Array(52).join("a");
+
+            const res = await exec();
+
+            expect(res.status).toBe(400);
+        });
+
+        it("should return 404 if invalid id is passed", async () => {
+            id = 1;
+            const res = await exec();
+            expect(res.status).toBe(404);
+        });
+
+        if (
+            ("should return 404 if the id is not present",
+            async () => {
+                id = mongoose.Types.ObjectId();
+                const res = await exec();
+                expect(res.status).toBe(404);
+            })
+        )
+            // to check if the genre is updated
+            it("should update the genre if id is valid", async () => {
+                await exec();
+                const updatedGenre = await Genre.findById(genre._id);
+                expect(updatedGenre.name).toBe(newName);
+            });
+
+        it("should return the updated genre in the response if id is valid", async () => {
+            const res = await exec();
+            expect(res.body).toHaveProperty("_id");
+            expect(res.body).toHaveProperty("name", newName);
+        });
+    });
+
+    describe("DELETE /:id", () => {
+        let id;
+        let token;
+        let genre;
+
+        beforeEach(async () => {
+            token = new User({ isAdmin: true }).generateAuthToken();
+            genre = new Genre({ name: "genre1" });
+            await genre.save();
+            id = genre._id;
+        });
+        const exec = async () => {
+            return await request(server)
+                .delete(`/api/genres/${id}`)
+                .set("x-auth-token", token)
+                .send();
+        };
+        it("should return 401 if client is not logged in", async () => {
+            token = "";
+            const res = await exec();
+            expect(res.status).toBe(401);
+        });
+
+        it("should return 403 if client is not an admin", async () => {
+            token = new User({ isAdmin: false }).generateAuthToken();
+
+            const res = await exec();
+            expect(res.status).toBe(403);
+        });
+
+        it("should return 404 if id is not valid", async () => {
+            id = 1;
+            const res = await exec();
+            expect(res.status).toBe(404);
+        });
+
+        it("should return 404 if a valid id is not found", async () => {
+            id = mongoose.Types.ObjectId();
+            const res = await exec();
+            expect(res.status).toBe(404);
+        });
+
+        it("should delete the genre if valid id is passed", async () => {
+            await exec();
+            const deletedGenre = await Genre.findById(id);
+            expect(deletedGenre).toBeNull();
+        });
+        it("should return the deleted genre if valid id is passed", async () => {
+            const res = await exec();
+            expect(res.body).toHaveProperty("_id", genre._id.toHexString());
+            expect(res.body).toHaveProperty("name", genre.name);
+        });
+    });
 });
