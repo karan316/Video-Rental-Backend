@@ -11,8 +11,8 @@ describe("auth middleware", () => {
     });
     // close the server after each test case
     afterEach(async () => {
-        await server.close();
         await Genre.deleteOne();
+        await server.close();
     });
 
     const exec = () => {

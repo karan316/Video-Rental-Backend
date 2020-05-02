@@ -4,7 +4,6 @@ const router = express.Router();
 const { Genre, validateGenre } = require("../models/genre");
 const auth = require("../middleware/auth");
 const admin = require("../middleware/admin");
-const mongoose = require("mongoose");
 
 router.get("/", async (req, res) => {
     // throw new Error("Could not get genres..");

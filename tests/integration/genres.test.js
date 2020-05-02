@@ -11,10 +11,10 @@ describe("/api/genres", () => {
     });
     // close the server after each test case
     afterEach(async () => {
-        await server.close();
         // clean up the database after each test so that the previous test docs don't show up
         // await Genre.remove({});
         await Genre.deleteOne();
+        await server.close();
     });
     describe("GET /", () => {
         it("should return all genres", async () => {

@@ -6,6 +6,7 @@ require("./startup/routes")(app); // routes returns a function. we call it with 
 require("./startup/db")();
 require("./startup/config");
 require("./startup/validation");
+require("./startup/prod")(app);
 
 const port = process.env.PORT || 3000;
 
