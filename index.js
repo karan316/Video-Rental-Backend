@@ -1,13 +1,15 @@
 const winston = require("winston");
 const express = require("express");
 const app = express();
+var cors = require("cors");
+app.use(cors());
 const logger = require("./startup/logSentry");
 require("./startup/logging")(); // this should be required before everything else
 require("./startup/routes")(app); // routes returns a function. we call it with the app object
 require("./startup/db")();
-require("./startup/cors")(app);
+// require("./startup/cors")(app);
 require("./startup/config");
-require("./startup/validation");
+require("./startup/validation")();
 require("./startup/prod")(app);
 
 logger.init();

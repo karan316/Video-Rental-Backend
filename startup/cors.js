@@ -1,5 +1,3 @@
-const cors = require("cors");
+// module.exports = function (app) {
 
-module.exports = function (app) {
-    app.use(cors());
-};
+// };

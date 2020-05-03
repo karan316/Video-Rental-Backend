@@ -11,7 +11,7 @@ function log(error) {
     Sentry.captureException(error);
 }
 
-export default {
+module.exports = {
     init,
     log,
 };
