@@ -1,6 +1,4 @@
-import * as Sentry from "@sentry/node";
-// or using CommonJS
-// const Sentry = require('@sentry/node');
+const Sentry = require("@sentry/node");
 
 function init() {
     Sentry.init({
